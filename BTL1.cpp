@@ -105,7 +105,8 @@ int main() {
     cout << endl;
 
     //mergesor(arr, 0, size - 1);
-BinaryInsertionSort(arr,size);
+    //BinaryInsertionSort(arr,size);
+    //shakerSort(arr,size);
     cout << "Sorted array: ";
     for (int i = 0; i < size; i++) {
         cout << arr[i] << " ";
