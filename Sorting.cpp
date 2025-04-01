@@ -4,6 +4,15 @@
 using namespace std;
 
 // Selection Sort #1
+void SelectionSort(int* a, int n) {
+	for (int i = 0; i < n - 1; i++) {
+		int min = i;
+		for (int j = i + 1; j < n; j++) {
+			if (a[j] < a[min]) min = j;
+		}
+		swap(a[i], a[min]);
+	}
+}
 
 // Insertion Sort #2
 
@@ -65,7 +74,6 @@ void HeapSort(int* arr, int size)
 // std:sort
 
 // Radix Sort #11
-
 int getMax(int *arr, int size) 
 {
     int max_arr = arr[0];
