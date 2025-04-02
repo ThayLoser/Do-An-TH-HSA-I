@@ -67,11 +67,88 @@ void HeapSort(int* arr, int size)
 }
 // Merge Sort #8
 
+
 // Natural Merge Sort #9
+void naturalMerge(int* arr, int left, int mid, int right) {
+	int n = right - left + 1;
+	int* temp = new int[n];
+	int i = left, j = mid + 1, d = 0;
+
+	while (i <= mid && j <= right) {
+		if (arr[i] <= arr[j]) {
+			temp[d++] = arr[i++];
+		}
+		else {
+			temp[d++] = arr[j++];
+		}
+	}
+
+	while (i <= mid) {
+		temp[d++] = arr[i++];
+	}
+
+	while (j <= right) {
+		temp[d++] = arr[j++];
+	}
+
+	for (int k = left; k <= right; k++) {
+		arr[k] = temp[k - left];
+	}
+}
+
+void naturalMergeSort(int* arr, int n) {
+	if (n <= 1) return;
+
+	bool sorted = false;
+
+	while (!sorted) {
+		sorted = true;
+		int left = 0;
+		
+		while (left < n) {
+			int mid = left;
+			while (mid < n - 1 && arr[mid] <= arr[mid + 1])
+				mid++;
+			if (mid == n - 1)
+				break;
+
+			int right = mid + 1;
+			while (right < n - 1 && arr[right] <= arr[right + 1])
+				right++;
+
+			merge(arr, left, mid, right);
+			sorted = false;
+			left = right + 1;
+		}
+	}
+}
+
 
 // Quick Sort #10
+int partition(int* a, int left, int right) {
+	int pivot = a[right];
+	int i = left - 1;
+
+	for (int j = left; j < right; j++) {
+		if (a[j] < pivot) {
+			i++;
+			swap(a[i], a[j]);
+		}
+	}
+	swap(a[i + 1], a[right]);
+	return i + 1;
+}
+
+void QuickSort(int* a, int left, int right) {
+	if (left < right) {
+		int pivotIndex = partition(a, left, right);
+		QuickSort(a, left, pivotIndex - 1);
+		QuickSort(a, pivotIndex + 1, right);
+	}
+}
 
 // std:sort
+sort(a, a + n);
 
 // Radix Sort #11
 int getMax(int *arr, int size) 
