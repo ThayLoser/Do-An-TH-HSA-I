@@ -38,7 +38,7 @@ void merge(int *arr,int left,int mid,int right){
     delete[] L1;
     delete[] L2;
     }
-     void mergesor(int*arr,int left,int right){
+     void mergesort(int*arr,int left,int right){
         if(left>=right)return;
     int mid=left+(right-left)/2;
     mergesor(arr,left,mid);
