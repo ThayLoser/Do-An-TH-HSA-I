@@ -15,7 +15,18 @@ void SelectionSort(int* a, int n) {
 }
 
 // Insertion Sort #2
-
+void InsertionSort(int* a, int n) {
+	int saved;
+	for (int i = 1; i < n; i++) {
+		saved = a[i];
+		int j = i;
+		while (j > 0 && saved < a[j - 1]) {
+			a[j] = a[j - 1];
+			j--;
+		}
+		a[j] = saved;
+	}
+}
 // BinaryInsertion Sort #3
 
 // Bubble Sort #4
@@ -33,6 +44,19 @@ void BubbleSort(int* arr, int size)
 // Shaker Sort #5
 
 // Shell Sort #6
+void ShellSort(int* a, int n) {
+	for (int gap = n / 2; gap > 0; gap /= 2) { // Gap = n/2
+		for (int i = gap; i < n; i++) {
+			int tmp = a[i];
+			int j = i;
+			while (j >= gap && a[j - gap] > tmp) {
+				a[j] = a[j - gap];
+				j -= gap;
+			}
+			a[j] = tmp;
+		}
+	}
+}
 
 // Heap Sort #7
 void heapify(int* arr, int size, int i) 
@@ -53,7 +77,6 @@ void heapify(int* arr, int size, int i)
         heapify(arr, size, largest);
     }
 }
-
 void HeapSort(int* arr, int size) 
 {
     for (int i = size / 2 - 1; i >= 0; i--)
@@ -65,8 +88,38 @@ void HeapSort(int* arr, int size)
         heapify(arr, i, 0);    
     }
 }
-// Merge Sort #8
 
+// Merge Sort #8
+void merge(int* a, int left, int mid, int right) {
+	int p1 = left, p2 = mid + 1, d = 0;
+	int n = right - left + 1;
+	int* tmpArr = new int[n];
+	while (p1 <= mid && p2 <= right){
+		if (a[p1] < a[p2]) {
+			tmpArr[d++] = a[p1++];
+		}
+		else {
+			tmpArr[d++] = a[p2++];
+		}
+	}
+	while (p1 <= mid) tmpArr[d++] = a[p1++];
+	while (p2 <= right) tmpArr[d++] = a[p2++];
+	
+	for (int i = left; i <= right; i++) {
+		a[i] = tmpArr[i];
+	}
+	delete[] tmpArr;
+}
+void MergeSort(int* a, int left, int right) { //recursive
+	int mid;
+	if (left < right) {
+		mid = (left + right) / 2;
+		MergeSort(a, left, mid); //Chia day ben trai
+		MergeSort(a, mid + 1, right); //Chia day ben phai
+		//Tron 2 day
+		merge(a, left, mid, right);
+	}
+}
 
 // Natural Merge Sort #9
 void naturalMerge(int* arr, int left, int mid, int right) {
