@@ -4,7 +4,7 @@
 using namespace std;
 
 // Selection Sort #1
-void selectionSort(int *&a, int n){
+void selectionSort(int* a, int n){
     for (int i = 0; i < n - 1; i++){
         int min = i;
         for (int j = i + 1; j < n; j++)
@@ -13,7 +13,7 @@ void selectionSort(int *&a, int n){
     }
 }
 // Insertion Sort #2
-void insertionSort(int *&arr, int n){
+void insertionSort(int* arr, int n){
     for (int i = 1; i < n; i++){
         int key = arr[i];
         int j = i - 1;
@@ -25,9 +25,28 @@ void insertionSort(int *&arr, int n){
     }
 }
 // Binary Insertion Sort #3
-
+int binarySearch(int* arr, int left, int right, int x){
+    if (left > right) return left;
+    int mid = left + (right - left) / 2;
+    if (*(arr + mid) == x) return mid + 1;
+    else if (*(arr + mid) > x) return binarySearch(arr, left, mid - 1, x);
+    else return binarySearch(arr, mid + 1, right, x);
+}
+void binaryInsertionSort(int *arr, int size){
+    int i, j, loc, selection; 
+    for (i = 1; i < size; i++) {
+        selection = *(arr + i);
+        j = i - 1;
+        loc = binarySearch(arr, 0, j, selection);
+        while (j >= loc) {
+            *(arr + j + 1) = *(arr + j);
+            j--;
+        }
+        *(arr + j + 1) = selection;
+    }
+}
 // Bubble Sort #4
-void bubbleSort(int *&arr, int size){
+void bubbleSort(int* arr, int size){
     for (int i = 0; i < size - 1; i++){
         for (int j = 1; j < size - i; j++){
             if (arr[j - 1] > arr[j])
@@ -36,9 +55,27 @@ void bubbleSort(int *&arr, int size){
     }
 }
 // Shaker Sort #5
-
+void shakerSort(int* arr, int size) {
+    int left = 0, right = size - 1, k = size - 1, i;
+    while (left < right) {
+        for (i = right; i > left; i--) {
+            if (arr[i] < arr[i - 1]) {
+                swap(arr[i], arr[i - 1]);
+                k = i;
+            }
+        }
+        left = k;
+        for (i = left; i < right; i++) {
+            if (arr[i] > arr[i + 1]) {
+                swap(arr[i], arr[i + 1]);
+                k = i;
+            }
+        }
+        right = k;
+    }
+}
 // Shell Sort #6
-void shellSort(int*& arr, int n){
+void shellSort(int* arr, int n){
     for (int gap = n / 2; gap > 0; gap /= 2){
         for (int i = gap; i < n; i++){
             int key = arr[i];
@@ -52,7 +89,7 @@ void shellSort(int*& arr, int n){
     }
 }
 // Heap Sort #7
-void heapify(int *&arr, int size, int i){
+void heapify(int* arr, int size, int i){
     int largest = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
@@ -63,7 +100,7 @@ void heapify(int *&arr, int size, int i){
         heapify(arr, size, largest);
     }
 }
-void heapSort(int *&arr, int size){
+void heapSort(int* arr, int size){
     for (int i = size / 2 - 1; i >= 0; i--) heapify(arr, size, i);
     for (int i = size - 1; i > 0; i--){
         swap(arr[0], arr[i]);
@@ -71,7 +108,7 @@ void heapSort(int *&arr, int size){
     }
 }
 // Merge Sort #8
-void merge(int*& a, int left, int mid, int right) {
+void merge(int* a, int left, int mid, int right) {
 	int p1 = left, p2 = mid + 1, d = 0;
 	int* tmpArr = new int[right - left + 1];
 	while (p1 <= mid && p2 <= right){
@@ -84,7 +121,7 @@ void merge(int*& a, int left, int mid, int right) {
 	for (int i = 0; i < d; i++) a[index++] = tmpArr[i];
 	delete[] tmpArr;
 }
-void mergeSort(int*& a, int left, int right) {
+void mergeSort(int* a, int left, int right) {
 	int mid;
 	if (left < right) {
 		mid = (left + right) / 2;
@@ -93,11 +130,11 @@ void mergeSort(int*& a, int left, int right) {
 		merge(a, left, mid, right);
 	}
 }
-void mergeSort(int*& a, int n){
+void mergeSort(int* a, int n){
     mergeSort(a, 0, n - 1);
 }
 // Natural Merge Sort #9
-void naturalMerge(int *&arr, int left, int mid, int right){
+void naturalMerge(int* arr, int left, int mid, int right){
     int n = right - left + 1;
     int *temp = new int[n];
     int i = left, j = mid + 1, d = 0;
@@ -109,7 +146,7 @@ void naturalMerge(int *&arr, int left, int mid, int right){
     while (j <= right) temp[d++] = arr[j++];
     for (int k = left; k <= right; k++) arr[k] = temp[k - left];
 }
-void naturalMergeSort(int *&arr, int n){
+void naturalMergeSort(int* arr, int n){
     if (n <= 1) return;
     bool sorted = false;
     while (!sorted) {
@@ -128,7 +165,7 @@ void naturalMergeSort(int *&arr, int n){
     }
 }
 // Quick Sort #10
-int partition(int *&a, int left, int right){
+int partition(int* a, int left, int right){
     int pivot = a[right];
     int i = left - 1;
     for (int j = left; j < right; j++){
@@ -140,27 +177,27 @@ int partition(int *&a, int left, int right){
     swap(a[i + 1], a[right]);
     return i + 1;
 }
-void quickSort(int *&a, int left, int right){
+void quickSort(int* a, int left, int right){
     if (left < right){
         int pivotIndex = partition(a, left, right);
         quickSort(a, left, pivotIndex - 1);
         quickSort(a, pivotIndex + 1, right);
     }
 }
-void quickSort(int*& a, int n){
+void quickSort(int* a, int n){
     quickSort(a, 0, n - 1);
 }
 // std:sort
 // sort(a, a + n);
 
 // Radix Sort #11
-int getMax(int *arr, int size){
+int getMax(int* arr, int size){
     int max_arr = arr[0];
     for (int i = 0; i < size; i++)
         if (max_arr < arr[i]) max_arr = arr[i];
     return max_arr;
 }
-void counting(int *arr, int size, int exp){
+void counting(int* arr, int size, int exp){
     int *output = new int[size];
     int count[10] = {0};
     for (int i = 0; i < size; i++) count[(arr[i] / exp) % 10]++;
@@ -173,7 +210,7 @@ void counting(int *arr, int size, int exp){
     for (int i = 0; i < size; i++) arr[i] = output[i];
     delete[] output;
 }
-void RadixSort(int *arr, int size){
+void RadixSort(int* arr, int size){
     int maxVal = getMax(arr, size);
     for (int i = 1; maxVal / i > 0; i *= 10) counting(arr, size, i);
 }
@@ -185,7 +222,7 @@ int main() {
     for (int i = 0; i < size; i++) arr[i] = rand();
 
     // Sorting Algorithm Go Here
-    mergeSort(arr, size);
+    insertionSort(arr, size);
     // Sorting Algorithm Go Here
 
     for (int i = 0; i < size; i++) cout << arr[i] << " ";
