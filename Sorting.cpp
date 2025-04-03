@@ -71,7 +71,31 @@ void heapSort(int *&arr, int size){
     }
 }
 // Merge Sort #8
-
+void merge(int*& a, int left, int mid, int right) {
+	int p1 = left, p2 = mid + 1, d = 0;
+	int* tmpArr = new int[right - left + 1];
+	while (p1 <= mid && p2 <= right){
+		if (a[p1] < a[p2]) tmpArr[d++] = a[p1++];
+		else tmpArr[d++] = a[p2++];
+	}
+	while (p1 <= mid) tmpArr[d++] = a[p1++];
+	while (p2 <= right) tmpArr[d++] = a[p2++];
+    int index = left;
+	for (int i = 0; i < d; i++) a[index++] = tmpArr[i];
+	delete[] tmpArr;
+}
+void mergeSort(int*& a, int left, int right) {
+	int mid;
+	if (left < right) {
+		mid = (left + right) / 2;
+		mergeSort(a, left, mid);
+		mergeSort(a, mid + 1, right);
+		merge(a, left, mid, right);
+	}
+}
+void mergeSort(int*& a, int n){
+    mergeSort(a, 0, n - 1);
+}
 // Natural Merge Sort #9
 void naturalMerge(int *&arr, int left, int mid, int right){
     int n = right - left + 1;
@@ -161,7 +185,7 @@ int main() {
     for (int i = 0; i < size; i++) arr[i] = rand();
 
     // Sorting Algorithm Go Here
-
+    mergeSort(arr, size);
     // Sorting Algorithm Go Here
 
     for (int i = 0; i < size; i++) cout << arr[i] << " ";
