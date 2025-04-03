@@ -2,43 +2,31 @@
 #include <time.h>
 using namespace std;
 
-void GenerateRandomData(int *a, int n)
-{
+void GenerateRandomData(int *a, int n){
 	srand(time(NULL));
-
-	for (int i = 0; i < n; i++)
-		a[i] = rand() % n + 0;
+	for (int i = 0; i < n; i++) a[i] = rand() % n + 0;
 }
 
-void GenerateSortedData(int *a, int n)
-{
-	for (int i = 0; i < n; i++)
-		a[i] = i;
+void GenerateSortedData(int *a, int n){
+	for (int i = 0; i < n; i++) a[i] = i;
 }
 
-void GenerateReverseData(int *a, int n)
-{
-	for (int i = 0; i < n; i++)
-		a[i] = n - 1 - i;
+void GenerateReverseData(int *a, int n){
+	for (int i = 0; i < n; i++) a[i] = n - 1 - i;
 }
 
-void GenerateNearlySortedData(int *a, int n)
-{
+void GenerateNearlySortedData(int *a, int n){
 	srand(time(NULL));
-	for (int i = 0; i < n; i++)
-		a[i] = i;
-	for (int i = 0; i < n / 5; i++)
-	{
+	for (int i = 0; i < n; i++) a[i] = i;
+	for (int i = 0; i < n / 5; i++){
 		int r1 = rand() % n + 0;
 		int r2 = rand() % n + 0;
 		swap(a[r1], a[r2]);
 	}
 }
 
-void GenerateData(int *a, int n, int dataType)
-{
-	switch (dataType)
-	{
+void GenerateData(int *a, int n, int dataType){
+	switch (dataType){
 	case 0:
 		GenerateRandomData(a, n);
 		break;

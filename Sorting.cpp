@@ -214,6 +214,8 @@ void RadixSort(int* arr, int size){
     int maxVal = getMax(arr, size);
     for (int i = 1; maxVal / i > 0; i *= 10) counting(arr, size, i);
 }
+// Counting Sort #12
+
 // For Testing
 int main() {
     srand(time(NULL));
