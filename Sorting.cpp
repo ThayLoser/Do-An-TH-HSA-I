@@ -165,11 +165,19 @@ void naturalMergeSort(int* arr, int n){
     }
 }
 // Quick Sort #10
-int partition(int* a, int left, int right){
-    int pivot = a[right];
+int medianOfThree(int* arr, int left, int right) {
+    int mid = left + (right - left) / 2;
+    if (arr[left] > arr[mid]) swap(arr[left], arr[mid]);
+    if (arr[left] > arr[right]) swap(arr[left], arr[right]);
+    if (arr[mid] > arr[right]) swap(arr[mid], arr[right]);
+    swap(arr[mid], arr[right]); 
+    return arr[right];
+}
+int partition(int* a, int left, int right) {
+    int pivot = medianOfThree(a, left, right);
     int i = left - 1;
-    for (int j = left; j < right; j++){
-        if (a[j] < pivot){
+    for (int j = left; j < right; j++) {
+        if (a[j] < pivot) {
             i++;
             swap(a[i], a[j]);
         }
@@ -177,15 +185,15 @@ int partition(int* a, int left, int right){
     swap(a[i + 1], a[right]);
     return i + 1;
 }
-void quickSort(int* a, int left, int right){
-    if (left < right){
+void quickSortRecur(int* a, int left, int right) {
+    if (left < right) {
         int pivotIndex = partition(a, left, right);
-        quickSort(a, left, pivotIndex - 1);
-        quickSort(a, pivotIndex + 1, right);
+        quickSortRecur(a, left, pivotIndex - 1);
+        quickSortRecur(a, pivotIndex + 1, right);
     }
 }
-void quickSort(int* a, int n){
-    quickSort(a, 0, n - 1);
+void quickSort(int* a, int n) {
+    quickSortRecur(a, 0, n - 1);
 }
 // std:sort
 // sort(a, a + n);
