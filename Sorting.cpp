@@ -210,12 +210,30 @@ void counting(int* arr, int size, int exp){
     for (int i = 0; i < size; i++) arr[i] = output[i];
     delete[] output;
 }
-void RadixSort(int* arr, int size){
+void radixSort(int* arr, int size){
     int maxVal = getMax(arr, size);
     for (int i = 1; maxVal / i > 0; i *= 10) counting(arr, size, i);
 }
 // Counting Sort #12
-
+void countingSort(int* arr, int size){
+    int max = arr[0];
+    for (int i = 0; i < size; i++){
+        if (max < arr[i])
+            max = arr[i];
+    }
+    int i;
+    vector<int> count(max + 1, 0);
+    for (i = 0; i < size; i++)
+        count[arr[i]]++;
+    i = 0;
+    for (int j = 0; j <= max; j++){
+        while (count[j] > 0) {
+            arr[i] = j;
+            count[j]--;
+            i++;
+        }
+    }
+} 
 // For Testing
 int main() {
     srand(time(NULL));
