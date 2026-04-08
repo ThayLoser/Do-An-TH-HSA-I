@@ -1,6 +1,6 @@
 # Do-An-TH-HSA-I
 
-Welcome to the **Do-An-TH-HSA-I** repository! This project focuses on implementing, generating data for, and testing sorting algorithms in C++. It provides a hands-on approach to understanding data structures and algorithmic performance.
+This project focuses on implementing, generating data for, and testing sorting algorithms in C++. It provides a hands-on approach to understanding data structures and algorithmic performance.
 
 ## 📁 Repository Structure
 
